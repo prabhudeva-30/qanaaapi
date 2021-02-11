@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { ICreateQuestion, Question } from './question.entity';
 import { ICrateTopics, Topics } from './topics.entity';
 import { ObjectID } from 'mongodb/index';
+import { Steps } from './steps.entity';
 
 @Injectable()
 export class TopicsService {
@@ -13,6 +14,8 @@ export class TopicsService {
         private _topicsRepository: Repository<Topics>,
         @InjectRepository(Question)
         private _questionsRepository: Repository<Question>,
+        @InjectRepository(Steps)
+        private _stepsRepository: Repository<Steps>,
     ) {
 
 
@@ -99,4 +102,13 @@ export class TopicsService {
     //  console.log(ax);
 
     // }
+
+
+    async getSteps(userIdString) {
+        return await this._stepsRepository.find({userId: userIdString});
+    }
+
+    async saveSteps(stepsData: any){
+        return await this._stepsRepository.save(stepsData);
+    }
 }

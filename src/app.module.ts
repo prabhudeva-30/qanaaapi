@@ -2,19 +2,14 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersController } from './users/users.controller';
 import { Users } from './users/users.entity';
 import { UsersModule } from './users/users.module';
-import { UsersService } from './users/users.service';
-import { LoginController } from './login/login.controller';
-import { LoginService } from './login/login.service';
 import { LoginModule } from './login/login.module';
-import { TopicsController } from './topics/topics.controller';
-import { TopicsService } from './topics/topics.service';
 import { TopicsModule } from './topics/topics.module';
 import { Topics } from './topics/topics.entity';
 import { Login } from './login/login.entity';
 import { Question } from './topics/question.entity';
+import { Steps } from './topics/steps.entity';
 
 
 @Module({
@@ -44,7 +39,7 @@ import { Question } from './topics/question.entity';
       //database: 'test',
       // w:'majority',
       ssl: true,
-      entities: [Users, Topics, Login, Question],
+      entities: [Users, Topics, Login, Question, Steps],
       synchronize: true,
       //autoLoadEntities: true,
       useNewUrlParser: true,
@@ -56,7 +51,7 @@ import { Question } from './topics/question.entity';
       logging: true,
 
     }),
-    UsersModule, LoginModule, TopicsModule],
+     UsersModule, LoginModule, TopicsModule],
   controllers: [AppController],
   providers: [AppService],
 })

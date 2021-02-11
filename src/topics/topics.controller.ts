@@ -46,4 +46,16 @@ export class TopicsController {
         return this._topicsService.addReviewer(questionId, reviewerData);
     }
 
+
+    @Get('getSteps')
+    async getSteps() {
+        return await this._topicsService.getSteps('prabhu');
+    }
+
+    @Post('saveSteps')
+    async saveSteps(@Body() stepsData: any): Promise<any> {
+        return await this._topicsService.saveSteps(stepsData);
+    }
+	
+
 }
