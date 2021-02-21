@@ -10,10 +10,10 @@ export class Steps {
     userId: string;
 
     @Column({ type: Date })
-    date: string;
+    date: Date;
 
     @Column({ type: Number })
-    steps: string;
+    steps: number;
 
 }
 
