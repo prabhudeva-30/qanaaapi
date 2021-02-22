@@ -23,3 +23,8 @@ export class Steps {
 
 }
 
+
+export interface StepsData {
+    //name: string;
+    currentSteps: number;
+}
