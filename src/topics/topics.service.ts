@@ -108,7 +108,43 @@ export class TopicsService {
         return await this._stepsRepository.find({userId: userIdString});
     }
 
-    async saveSteps(stepsData: any){
-        return await this._stepsRepository.save(stepsData);
+   // async saveSteps(stepsData: any){
+   //     return await this._stepsRepository.save(stepsData);
+   // }
+    
+     async saveSteps(stepsData: any) {
+        let staarter = new Date().setUTCHours(0, 0, 0, 0);
+        let ender = new Date().setUTCHours(23, 59, 59, 999);
+        console.log([new Date(staarter).toISOString(), new Date(ender).toISOString()]);
+        console.log([new Date(staarter), new Date(ender)]);
+      
+        stepsData.date = new Date(stepsData.date);
+        
+        const todayCount = await this._stepsRepository.find({
+            where: {
+                userId: stepsData.userId,
+                date: { $gte: new Date(staarter), $lte: new Date(ender) }
+            }
+        });
+        console.log(todayCount);
+
+        //moment().utc().format(stepsData.date.toDateString());
+
+        if (todayCount && todayCount.length > 0) {
+                console.log(todayCount[0]);
+                todayCount[0].stepsCount.push({ currentSteps: stepsData.stepsCount[0].currentSteps });
+                console.log('-------------');
+                console.log(todayCount[0]);
+
+                return await this._stepsRepository.update(
+                    {
+                        id:   todayCount[0].id
+                    },
+                    { stepsCount: todayCount[0].stepsCount }
+                );
+        } else {
+               return await this._stepsRepository.save(stepsData);
+        }
     }
+    
 }
