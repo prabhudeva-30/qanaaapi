@@ -9,11 +9,17 @@ export class Steps {
     @Column({ type: String })
     userId: string;
 
-    @Column({ type: Date })
+    @Column({ type: Date , default: new Date()})
     date: Date;
 
-    @Column({ type: Number })
-    steps: number;
+    @Column()
+    stepsCount: StepsData[];
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
 
 }
 
